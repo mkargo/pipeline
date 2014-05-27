@@ -1,0 +1,120 @@
+# Example inputs for the e-MERLIN end-to-end pipeline.
+userno = 19		# An AIPS user number with an empty catalogue!
+indisk = 1		# AIPS disk to use
+targets = 1236+6212	# List of targets (comma-separated if more than one)
+phsrefs = 1237+6221	# List pf phase cals (comma-separated if more than one)
+fluxcals = 1331+305	# List of flux cals (comma-separated... you get the idea)
+bpasscals = 1407+284	# List of bandpass cals (as above)
+pointcals = 1407+284	# List of point cals (as above, although unlikely to be >1)
+
+# Optional data and plot locations - all default to the current working directory if not set here
+fitsdir = /local/scratch/user/myproject/
+plotdir = /local/scratch/user/myproject/plots/
+fittpdir = /local/scratch/user/myproject/fits/
+
+
+# Control signals, determine which parts of the pipeline to execute (all set to 1 by default)
+doload = -1		# Load data from fitsdir (more options below)
+doflagmask = -1		# Apply known RFI flag mask (writes an FG table)
+doavg = -1		# Average the data in frequency and/or time (more options below)
+dodiagnostic1 = -1	# Diagnostic plots pre-flagging with SERPent
+doflag = -1		# Flag with SERPent (SERPent inputs below)
+dodiagnostic2 = -1	# Diagnostic plots after flagging
+doback = -1		# Backup data/tables at this point (to fittpdir)
+doconcat = -1		# DBCON all files together to make one uv database
+docalib = -1		# Run the calibration procedures (more options below)
+
+
+
+# within doload
+dosortfirst = -1	# Sometimes the data must be sorted before proceeding
+
+# within doavg
+nchan = 32		# Number of channels required per IF in output dataset
+tint = 6		# Time averaging (-1 for no time averaging)
+dosort = -1		# Sort after averaging, should rarely be needed
+
+# within doconcat
+dodelete = 1 		# Tidy up and delete redundant files immediately following DBCON
+
+# within docalib
+dodiagnostic3 = -1	# More diagnostic plots
+dofringfit = 1		# Run a fringe fit
+dosetflux = 1		# Set the fluxes of the fluxcal
+dofluxcal = 1		# Do the rest of the flux calibration
+dobandpass = 1		# Run BPASS
+dotherest = -1 		# Run the rest of the calibration procedures
+dosefd = -1		# Calculate SEFD estimates from the data
+
+# within dosefd
+SEFDbif = 1		# Starting IF
+SEFDeif = 8		# Ending IF
+SEFDbchan = 50		# Start channel
+SEFDechan = 60		# End channel
+#SEFDnif = 12		# Not needed
+Sfield = 0.0e0		# estimated flux density (in Jy) remaining in the field sources
+beta = 5e5		# spectral channel width of data in Hz
+tau = 1			# time integration of data in Seconds
+nu = 0.93		# WIDAR correlator efficiency -- 0.93 is EVLA estimate
+kappa = 1		# improvement in SNR due to hannin smoothing
+			# nb kappa = 1.633 for 3 channel hanning smoothing
+
+pointflux = 1
+
+
+# Selection of sub-bands to be split after loading (useful if you want a quick look at
+# data, or to extract a particular sub-band).
+# Note Sbandl and SbandU must be a contiguous range of sub-bands.
+sbandl = 1
+sbandu = 0
+
+# Smoothing of the data within splat. (ie. Smooth(1), (2), (3)
+# 0= no smoothing, a,b,c = 1, 4, 1 default for hanning
+smootha = 0
+smoothb = 0
+smoothc = 0
+
+
+
+#############################################
+# AUTO FLAGGER OPTIONS                      #
+#############################################
+
+# Flagging options - see the SERPent documentation for their meaning and default values
+aggr1 = 30
+max1 = 32
+aggr2 = 25
+max2 = 256
+rho = 1.5
+ncpu = 16 # Number of CPUs available (TRAAL = 16, FLAGGER=8, KRIA =24, etc)
+kickoutsigma = 1.5
+
+#############################################
+# PIPELINE CALIBRATION OPTIONS (TBC)        #
+#############################################
+
+# Reference antennas. Choices are: Mk2, Pi, Da, Kn, De, Cm, Lo
+# The default refant is Mk2 (if in the array).
+refant = Mk2
+
+# Fring options
+solint = 7
+
+# How chatty do you want AIPS to be?  Defaults to -5.
+msgkill = -5
+
+# Do selfcal on phase calibrator? 0=no, any other positive integer = this many rounds of selfcal. Default is 0.
+doselfcal = 3
+
+# Parameters for imaging.  Note that the cellsize will be reset if you set it outside a 
+# sensible range for the frequency given in the FITS header.
+# The imsize parameter only applies to your target field.
+imsize = 2048
+cellsize = 0.02
+
+
+# snr for fring, defaults to 9
+fring_snr = 9
+
+
+
