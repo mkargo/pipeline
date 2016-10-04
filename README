@@ -1,18 +1,13 @@
 e-MERLIN pipeline and associated files.
 
-doall.inputs			Example inputs file, used to drive the pipeline.
-eMERLIN_doall_vx.x_yyyymmdd.py	Current working version of the pipeline.
-eMERLIN_tasks.py		Tasks required for pipeline functionality.
-flagmask512.fg			Flag mask of known RFI.
-README				This file.
-megapossm.py			Neal Jackson's megapossm script.
-3C286_CWT_LBAND.ICL001.fits	L-band model for 3C286.
+v0.9 - released 20161003, contains many updates (described in eMERLIN_pipeline.py)
+v0.7 - first public release of the pipeline, as described in Argo 2015.
 
 Quickstart:
 Download all files to wherever your data are located.
 Edit "doall.inputs" to modify the parameters for your requirements.
 At the command line, type the following and answer the prompts:
-	> ParselTongue eMERLIN_doall_vx.x_yyyymmdd.py doall.inputs
+	> ParselTongue eMERLIN_pipeline.py doall.inputs
 Have a cup of tea while you wait for it to run.
 
 Various stages generate diagnostic plots and/or tables attached to your dataset.
@@ -24,4 +19,4 @@ required.  You WILL want to edit your solution tables.
 More detailed instructions and recommendations can be found in the e-MERLIN 
 user guide, available from here: http://www.e-merlin.ac.uk/data_red/
 
-mkargo 2013
+mkargo 20161004
